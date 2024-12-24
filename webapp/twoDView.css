@@ -141,7 +141,7 @@
 }
 
 .toolpath {
-    stroke-width: 1.5;
+    stroke-width: 1;
     fill: none;
 }
 
@@ -150,5 +150,5 @@
 }
 
 .normalMove {
-    stroke: white;
+    stroke: #eeeeee;
 }
