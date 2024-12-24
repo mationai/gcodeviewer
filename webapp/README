@@ -1,5 +1,19 @@
+# About
+
 This directory is the chrome application root.
 The JS files immediately in this directory are entry point files, while those in the sub-directories are exposing classes.
 It is also directly accessed online by the website.
 
 to generate the template.js file there is the compile_ember.sh script.
+
+# Running
+
+Go to http://localhost:8000 after running:
+
+```sh
+python3 -m http.server 8000
+```
+
+# Changes
+
+To change window sizes, edit `index.html`.
