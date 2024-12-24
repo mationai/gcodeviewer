@@ -3,6 +3,7 @@
 Fork of [webgcode](https://github.com/nraynaud/webgcode) with enhancements:
 
 * Longer G-code and 2D-view window
+* Better colors
 * Ability to upload G-code
 
 # Webgcode Overview

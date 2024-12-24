@@ -171,6 +171,7 @@ define(['THREE', 'TWEEN', 'cnc/util', 'libs/threejs/OrbitControls', 'cnc/ui/cube
             this.renderer.sortObjects = false;
             this.renderer.setSize(width, height);
             this.renderer.autoClear = false;
+            this.renderer.setClearColor(0xf2f2f2);
             this.resizeHandler = function () {
                 _this.camera.aspect = $container.width() / $container.height();
                 _this.camera.updateProjectionMatrix();
@@ -197,7 +198,8 @@ define(['THREE', 'TWEEN', 'cnc/util', 'libs/threejs/OrbitControls', 'cnc/ui/cube
                 var size = 10, step = 5;
                 var grid = new THREE.GridHelper(size, step);
                 grid.applyMatrix(new THREE.Matrix4().makeRotationX(Math.PI / 2));
-                grid.setColors(0xFF7F2A, 0xFF7F2A);
+                // grid.setColors(0xFF7F2A, 0xFF7F2A);
+                grid.setColors(0x888888, 0x888888);
                 return grid;
             }
 
@@ -267,7 +269,8 @@ define(['THREE', 'TWEEN', 'cnc/util', 'libs/threejs/OrbitControls', 'cnc/ui/cube
             this.overlayScene.add(directionalLight.clone());
             this.overlayScene.add(directionalLight2.clone());
             const linewidth = 1; // values other than 1 don't work
-            const normColor = 0xeeeeee;
+            const normColor = 0x2600FF;
+            // const normColor = 0xeeeeee; // if black bg;
             this.normalMaterial = new THREE.LineBasicMaterial({linewidth, color: normColor}); 
             this.rapidMaterial = new THREE.LineBasicMaterial({linewidth, color: 0xFF0000});
             this.outlineMaterial = new THREE.LineBasicMaterial({linewidth, color: 0xFFFF00});
@@ -278,7 +281,6 @@ define(['THREE', 'TWEEN', 'cnc/util', 'libs/threejs/OrbitControls', 'cnc/ui/cube
             //needed because requestAnimationFrame can't pass a "this".
             this.requestAnimationFrameCallback = this.actuallyRender.bind(this);
             $container.prepend(cubeManipulator(this));
-            $container.prepend($('<div class="3DWarning" title="maybe one day" style="position:absolute; top:0; right: 0;">Sorry, there is no mouse selection in this view.</div>'));
             this.rapidToolpathNode = this.createOverlayNode(this.rapidMaterial);
             this.normalToolpathNode = this.createDrawingNode(this.normalMaterial, new THREE.MeshBasicMaterial({
                 color: 0x6622BB,
