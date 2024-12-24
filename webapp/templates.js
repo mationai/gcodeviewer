@@ -2,6 +2,9 @@ Ember.TEMPLATES["operationSimpleContour"] = Ember.Handlebars.template(function a
 /*``*/) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  /**
+   * Radial Engagement: running
+   */
   var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
@@ -354,14 +357,10 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
 
 
-  data.buffer.push("<div>\n    <dl>\n        <dt>Total Duration:</dt>\n        <dd ");
-  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'title': ("formattedTotalTime.detailed")
-  },hashTypes:{'title': "ID"},hashContexts:{'title': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(">");
+  data.buffer.push("<div>\n<dl><dd>Duration: ");
   stack1 = helpers._triageMustache.call(depth0, "formattedTotalTime.humanized", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</dd>\n    </dl>\n    <dl>\n        <dt>Bounds (@tool center):</dt>\n        <dd>\n            <table class=\"boundsTable\" style=\"text-align:right;\">\n                <thead>\n                <tr>\n                    <th>&nbsp;</th>\n                    <th>min</th>\n                    <th>max</th>\n                </tr>\n                </thead>\n                <tbody>\n                <tr>\n                    <th>X</th>\n                    <td>");
+  data.buffer.push("</dd>\n    </dl>\n    <dl>\n        <dt>Bounds:</dt>\n        <dd>\n            <table class=\"boundsTable\" style=\"text-align:right;\">\n                <thead>\n                <tr>\n                    <th>&nbsp;</th>\n                    <th>min</th>\n                    <th>max</th>\n                </tr>\n                </thead>\n                <tbody>\n                <tr>\n                    <th>X</th>\n                    <td>");
   data.buffer.push(escapeExpression((helper = helpers.num || (depth0 && depth0.num),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "bbox.min.x", options) : helperMissing.call(depth0, "num", "bbox.min.x", options))));
   data.buffer.push("</td>\n                    <td>");
   data.buffer.push(escapeExpression((helper = helpers.num || (depth0 && depth0.num),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "bbox.max.x", options) : helperMissing.call(depth0, "num", "bbox.max.x", options))));
@@ -877,15 +876,32 @@ function program9(depth0,data) {
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
     'disabled': ("computing")
   },hashTypes:{'disabled': "STRING"},hashContexts:{'disabled': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(">Load a big sample</button>\n\n    ");
+  onUploadFnStr = 'document.getElementById("fileInput").click()'
+  data.buffer.push(`>Load big sample</button> <button id='uploadBtn' onclick='${onUploadFnStr}'>Upload G-code</button> <input type='file' id='fileInput' accept='.gcode,.ngc' style='display: none;' onchange='handleFileUpload(event)'>`);
   stack1 = helpers['if'].call(depth0, "computing", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(9, program9, data),fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n</div>");
   return buffer;
   
 });
+function handleFileUpload(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const editBlock = document.querySelector('.editBlock');
+      const editors = document.querySelectorAll('.ace_editor');
+      if (editBlock == null || editors == null || editors.length == 0)
+        return;
+
+      const editor = ace.edit(editors[0]);
+      editor.setValue(e.target.result);
+    };
+    reader.readAsText(file);
+  }
+}
 Ember.TEMPLATES["operationSimpleEngraving"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
-/*``*/) {
+) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;

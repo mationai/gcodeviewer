@@ -16,4 +16,4 @@ python3 -m http.server 8000
 
 # Changes
 
-To change window sizes, edit `index.html`.
+To change window sizes, edit width and height in `gcodeviewer/index.html`.

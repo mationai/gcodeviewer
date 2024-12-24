@@ -1,3 +1,13 @@
+# About
+
+Fork of [webgcode](https://github.com/nraynaud/webgcode) with enhancements:
+
+* Longer G-code window
+* Longer 2D window
+* Ability to upload G-code
+
+# Overview
+
 Webgcode
 ========
 The beginning of a browser integrated CNC milling machine.
