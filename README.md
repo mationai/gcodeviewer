@@ -2,18 +2,13 @@
 
 Fork of [webgcode](https://github.com/nraynaud/webgcode) with enhancements:
 
-* Longer G-code window
-* Longer 2D window
+* Longer G-code and 2D-view window
 * Ability to upload G-code
 
-# Overview
-
-Webgcode
-========
+# Webgcode Overview
 The beginning of a browser integrated CNC milling machine.
 
-A bit of History
-================
+## A bit of History
 
 I have a Mac, and there are no real software to control a milling machine from that kind of computer. I decided to hack 
 some random pieces of technology together.
@@ -30,8 +25,7 @@ The parser is there, it's plugged etc. I just don't have an UI to put it into th
 I'm really into creating my own toolpath now, so it's an incentive to develop the code when I need something. 
 It's also a trap, because anything new (say a drag knife, a laser head or an extruder) needs few weeks of development before being able to use it.
 
-Web Stuff
----------
+## Web Stuff
 
 [![visucam screen capture](images/visucam_pockets_thumb.png)](images/visucam_pockets.png) [![visucam screen capture](images/visucam_3D_thumb.png)](images/visucam_3D.png)
 
@@ -41,8 +35,7 @@ The application can import (drop the file on the window) STL, SVG, gerber and ex
 
 There is a g-code simulator here: http://nraynaud.github.io/webgcode/ (that's where the name of the project comes from).
 
-Controller Board
-----------------
+## Controller Board
 
 [![Controller board schematics](images/DISCOVERY_interface_thumb.png)](images/DISCOVERY_interface.png)
 
@@ -60,8 +53,7 @@ The wiring is described in the [main.c](interpolator/main.c#L10) and [manual.c](
 
 Yes, I called the directory "interpolator" and no, there is no interpolation code in it.
 
-IO Board
---------
+## IO Board
 
 [![IO board schematics](images/IO_interface_thumb.png)](images/IO_interface.png)
 
@@ -72,8 +64,7 @@ optoisolators (UPF and DRV) were not populated, so I just bought some on eBay an
 The board consists of one 74HC595 and one 74HC165, behind a digital isolator; the MCU communicates over SPI to get isolated IOs.
 
 
-Chrome Application
-------------------
+## Chrome Application
 
 [![controller screen capture](images/controller_full_thumb.png)](images/controller_full.png)
 
@@ -85,12 +76,10 @@ of steps to a machine (there is no g-code interpolator in the embedded system).
 
 This is all Chrome technology in the hope to remove OS re-compilation/deployment efforts.
 
-License
--------
+## License
 
 This code is licensed under MIT and Affero GPL double licensing.
 
-Contact
--------
+## Contact
 
-To contact me about anything, you can use the issues system, there is no traffic on it.
+Please go to original repo [webgcode](https://github.com/nraynaud/webgcode) 
