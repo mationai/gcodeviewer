@@ -332,13 +332,14 @@ Ember.TEMPLATES["operationRampingContour"] = Ember.Handlebars.template(function 
   data.buffer.push("\n        <span class=\"input-group-addon\">units</span></td>\n</tr>\n");
   return buffer;
 });
+
 Ember.TEMPLATES["jobView"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
 ) {
   this.compilerInfo = [4,'>= 1.0.0'];
   helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
 
-  data.buffer.push("<div>\n<dl><dd>Duration: ");
+  data.buffer.push("<div>\n <div id='gcodeFilename'></div> <dl><dd>Duration: ");
   stack1 = helpers._triageMustache.call(depth0, "formattedTotalTime.humanized", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</dd>\n    </dl>\n    <dl>\n        <dt>Bounds:</dt>\n        <dd>\n            <table class=\"boundsTable\" style=\"text-align:right;\">\n                <thead>\n                <tr>\n                    <th>&nbsp;</th>\n                    <th>min</th>\n                    <th>max</th>\n                </tr>\n                </thead>\n                <tbody>\n                <tr>\n                    <th>X</th>\n                    <td>");
@@ -849,10 +850,12 @@ function handleFileUpload(event) {
 
       const editor = ace.edit(editors[0]);
       editor.setValue(e.target.result);
+      document.querySelector('#gcodeFilename').textContent = `File: ${file.name}`;
     };
     reader.readAsText(file);
   }
 }
+
 Ember.TEMPLATES["operationSimpleEngraving"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
 ) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -887,6 +890,7 @@ Ember.TEMPLATES["operationSimpleEngraving"] = Ember.Handlebars.template(function
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   return buffer;
 });
+
 Ember.TEMPLATES["shape"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
 ) {
   this.compilerInfo = [4,'>= 1.0.0'];
