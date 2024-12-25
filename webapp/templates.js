@@ -339,9 +339,10 @@ Ember.TEMPLATES["jobView"] = Ember.Handlebars.template(function anonymous(Handle
   helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
 
-  data.buffer.push("<div>\n <div id='gcodeFilename'></div> <dl><dd>Duration: ");
-  stack1 = helpers._triageMustache.call(depth0, "formattedTotalTime.humanized", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("<div>\n <div id='gcodeFilename'>File: ");
+  stack1 = window.gcodeFilename || 'Sample.gcode';
+  data.buffer.push(stack1);
+  data.buffer.push("</div> <dl><dd>Duration: ");
   data.buffer.push("</dd>\n    </dl>\n    <dl>\n        <dt>Bounds:</dt>\n        <dd>\n            <table class=\"boundsTable\" style=\"text-align:right;\">\n                <thead>\n                <tr>\n                    <th>&nbsp;</th>\n                    <th>min</th>\n                    <th>max</th>\n                </tr>\n                </thead>\n                <tbody>\n                <tr>\n                    <th>X</th>\n                    <td>");
   data.buffer.push(escapeExpression((helper = helpers.num || (depth0 && depth0.num),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "bbox.min.x", options) : helperMissing.call(depth0, "num", "bbox.min.x", options))));
   data.buffer.push("</td>\n                    <td>");
@@ -663,6 +664,7 @@ Ember.TEMPLATES["job"] = Ember.Handlebars.template(function anonymous(Handlebars
   data.buffer.push("\n</div>");
   return buffer;
 });
+
 Ember.TEMPLATES["operation"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
 ) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -755,6 +757,7 @@ Ember.TEMPLATES["index"] = Ember.Handlebars.template(function anonymous(Handleba
   data.buffer.push("\n    </ul>\n</div>");
   return buffer;
 });
+
 Ember.TEMPLATES["camApp"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
 ) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -823,7 +826,7 @@ Ember.TEMPLATES["camApp"] = Ember.Handlebars.template(function anonymous(Handleb
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
     'disabled': ("computing")
   },hashTypes:{'disabled': "STRING"},hashContexts:{'disabled': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(">Simulate</button>\n    <button ");
+  data.buffer.push(">Simulate</button>\n    <button id='bigSampleBtn' onclick='()=>handleLoadBigSample()' ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "loadBigSample", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push(" ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
@@ -838,6 +841,11 @@ Ember.TEMPLATES["camApp"] = Ember.Handlebars.template(function anonymous(Handleb
   return buffer;
 });
 
+function handleLoadBigSample(event) {
+  //* won't work. template re-rendered after, so even setTimeout of 13secs won't trigger it. 
+  window.gcodeFilename = 'aztec_calendar.ngc';
+}
+
 function handleFileUpload(event) {
   const file = event.target.files[0];
   if (file) {
@@ -850,7 +858,12 @@ function handleFileUpload(event) {
 
       const editor = ace.edit(editors[0]);
       editor.setValue(e.target.result);
-      document.querySelector('#gcodeFilename').textContent = `File: ${file.name}`;
+      
+      const filenameDiv = document.querySelector('#gcodeFilename');
+      filenameDiv.textContent = `File: ${file.name}`;
+      //* update global gcodeFilename also since 'Simulate' will override it o/w.
+      //* ('jobView' tmpl sets it to global gcodeFilename if it's set)
+      window.gcodeFilename = file.name;
     };
     reader.readAsText(file);
   }
